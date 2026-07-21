@@ -1,7 +1,7 @@
-import mysql, { ResultSetHeader, QueryValue } from "mysql2/promise";
+import mysql, { ResultSetHeader } from "mysql2/promise";
 
-const globalForDb = globalThis as unknown as {
-  pool: mysql.Pool | undefined;
+const globalForDb = globalThis as {
+  pool?: mysql.Pool;
 };
 
 function createPool() {
@@ -21,7 +21,7 @@ if (process.env.NODE_ENV !== "production") {
 
 export async function query<T>(
   sql: string,
-  params: QueryValue[] = []
+  params: any[] = []
 ): Promise<T> {
   const [rows] = await pool.execute(sql, params);
   return rows as T;
@@ -29,16 +29,16 @@ export async function query<T>(
 
 export async function queryOne<T>(
   sql: string,
-  params: QueryValue[] = []
+  params: any[] = []
 ): Promise<T | null> {
   const [rows] = await pool.execute(sql, params);
-  const arr = rows as T[];
-  return arr.length ? arr[0] : null;
+  const result = rows as T[];
+  return result.length > 0 ? result[0] : null;
 }
 
 export async function insert(
   sql: string,
-  params: QueryValue[] = []
+  params: any[] = []
 ): Promise<number> {
   const [result] = await pool.execute(sql, params);
   return (result as ResultSetHeader).insertId;
@@ -46,7 +46,7 @@ export async function insert(
 
 export async function update(
   sql: string,
-  params: QueryValue[] = []
+  params: any[] = []
 ): Promise<number> {
   const [result] = await pool.execute(sql, params);
   return (result as ResultSetHeader).affectedRows;
