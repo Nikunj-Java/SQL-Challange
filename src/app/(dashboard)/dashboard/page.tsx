@@ -66,7 +66,7 @@ export default async function DashboardPage() {
           </p>
         </div>
 
-        <Button asChild>
+        <Button >
           <a href="/download.pubs.sql" download="pubs.sql">
             <Download className="mr-2 h-4 w-4" />
             Download Database

@@ -33,7 +33,7 @@ export default function DownloadPage() {
             </ul>
           </div>
 
-          <Button size="lg" asChild>
+          <Button size="lg" >
             <a href="/download.pubs.sql" download="PUBS_Database.sql">
               <Download className="mr-2 h-5 w-5" />
               Download Database
