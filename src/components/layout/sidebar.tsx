@@ -12,6 +12,7 @@ import {
   Trophy,
   Award,
   HelpCircle,
+  GraduationCap,
   Menu,
   X,
 } from "lucide-react";
@@ -21,7 +22,10 @@ const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/how-to-play", label: "How to Play", icon: HelpCircle },
   { href: "/challenges", label: "Challenges", icon: ClipboardList },
-
+  { href: "/tutorials", label: "SQL Tutorials", icon: GraduationCap },
+  { href: "/modules", label: "Modules", icon: BookOpen },
+  { href: "/teams", label: "Teams", icon: Users },
+  { href: "/scoring", label: "Scoring", icon: Star },
   { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
   { href: "/awards", label: "Awards", icon: Award },
 ];

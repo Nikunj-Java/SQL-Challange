@@ -2,11 +2,12 @@ import { getLeaderboard } from "@/lib/db/queries";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RankIndicator, TeamBadge, ScoreDisplay } from "@/components/shared";
 import { Trophy } from "lucide-react";
+import type { LeaderboardEntry } from "@/types";
 
 export const dynamic = "force-dynamic";
 
 export default async function LeaderboardPage() {
-  let leaderboard;
+  let leaderboard: LeaderboardEntry[];
   try {
     leaderboard = await getLeaderboard();
   } catch {

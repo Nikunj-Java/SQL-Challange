@@ -112,3 +112,27 @@ export interface ScoreWithDetails extends Score {
   challenge_name: string;
   criterion_name: string;
 }
+
+export interface TutorialSection {
+  concept: string;
+  explanation: string;
+  syntax: string;
+  exampleTitle: string;
+  exampleInput: string;
+  exampleQuery: string;
+  exampleOutput: string;
+  tryIt: {
+    question: string;
+    hint: string;
+    solution: string;
+  };
+}
+
+export interface Tutorial {
+  stepId: number;
+  title: string;
+  subtitle: string;
+  introduction: string;
+  sections: TutorialSection[];
+  summary: string;
+}

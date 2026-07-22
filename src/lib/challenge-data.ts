@@ -172,11 +172,11 @@ export const STEPS: StepContent[] = [
       "Present as: 'We built ___'.",
     ],
     exampleQueries: [
-      { description: "Address label formatting", sql: "SELECT CONCAT(au_fname, ' ', au_lname) AS full_name,\nCONCAT(address, ', ', city, ', ', state, ' ', zip) AS mailing_label\nFROM authors;" },
-      { description: "Description contains 'Computer' (case insensitive) — tag titles for a campaign", sql: "SELECT title FROM titles WHERE LOWER(notes) LIKE '%computer%';" },
-      { description: "Phone number format check", sql: "SELECT au_lname, au_fname, phone\nFROM authors\nWHERE phone NOT LIKE '___-___-____';" },
-      { description: "CASE: cheap vs expensive classification", sql: "SELECT title, price,\nCASE\n  WHEN price < 10 THEN 'Budget'\n  WHEN price < 20 THEN 'Standard'\n  ELSE 'Premium'\nEND AS price_category\nFROM titles;" },
-      { description: "IFNULL for revenue forecasting", sql: "SELECT title, IFNULL(price, 9.99) AS est_price,\nIFNULL(ytd_sales, 1000) AS est_sales,\nIFNULL(price, 9.99) * IFNULL(ytd_sales, 1000) AS est_revenue\nFROM titles;" },
+      { description: "Address & Label Formatting — display name with UPPER", sql: "SELECT CONCAT(UPPER(au_lname), ', ', au_fname) AS display_name,\nCONCAT(address, ', ', city, ', ', state, ' ', zip) AS mailing_label\nFROM authors;" },
+      { description: "Data Quality Check — replace NULL prices with defaults", sql: "SELECT title,\nIFNULL(price, 9.99) AS safe_price,\nCOALESCE(notes, 'No description') AS description\nFROM titles;" },
+      { description: "Campaign Tagging — case-insensitive search + CASE classification", sql: "SELECT title,\nCASE\n  WHEN LOWER(title) LIKE '%computer%' THEN 'Tech Campaign'\n  WHEN LOWER(title) LIKE '%cook%' THEN 'Lifestyle Campaign'\n  ELSE 'General'\nEND AS campaign_tag\nFROM titles;" },
+      { description: "Pricing Segmentation — CASE for marketing tiers", sql: "SELECT title, price,\nCASE\n  WHEN price IS NULL THEN 'Unclassified'\n  WHEN price < 10 THEN 'Budget'\n  WHEN price <= 20 THEN 'Standard'\n  ELSE 'Premium'\nEND AS tier\nFROM titles;" },
+      { description: "Revenue Forecasting — IFNULL defaults + GROUP BY", sql: "SELECT type,\nCOUNT(*) AS title_count,\nROUND(SUM(IFNULL(price, 9.99) * IFNULL(ytd_sales, 1000)), 2) AS est_revenue\nFROM titles\nGROUP BY type\nORDER BY est_revenue DESC;" },
     ],
     expectedOutput: "Mini product feature: Data Quality Check, Forecasting Report, or Customer Segmentation.",
     scoringRubric: [
@@ -185,7 +185,7 @@ export const STEPS: StepContent[] = [
       { criterion: "Presentation", maxPoints: 2, description: "Clear presentation of the feature" },
     ],
     outputFormat: "5-minute demo of mini product feature.",
-    tips: ["CONCAT() for string combining.", "DATE_FORMAT() for date formatting.", "CASE for conditional logic.", "IFNULL/COALESCE for NULL handling."],
+    tips: ["CONCAT() joins strings — use with UPPER()/LOWER() for formatted labels.", "IFNULL(value, default) replaces NULL — COALESCE() checks multiple columns.", "CASE works like if-else — great for classification and tagging.", "LOWER() + LIKE for case-insensitive searches — '%keyword%' matches anywhere.", "CHAR_LENGTH() counts characters — use for length-based tagging.", "Always alias computed columns with AS for readable output."],
   },
   {
     stepNumber: 7,
