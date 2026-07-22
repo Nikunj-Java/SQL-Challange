@@ -1,0 +1,159 @@
+SQL Story Campaign
+
+Theme "PUBS: The Publishing House Crisis"
+
+Your database is a publishing business (authors, titles, publishers, stores, sales, discounts, employees). 
+Use it for the story.
+
+Story hook:
+
+PUBS is preparing for a Board Meeting today. But data is messy: wrong cities, missing authors, strange discounts, inconsistent orders.
+You are the Data Response Team. Your SQL decides the company’s future.
+
+Team setup:
+15 min challenge: SQl Diagnostics (individual)
+
+Q1 (SELECT/WHERE):
+Find authors who live in Oakland and have contract = 1.
+
+Q2 (ORDER BY/LIMIT):
+Show top 3 most expensive titles (title, price).
+
+Q3 (DISTINCT):
+List distinct states where publishers exist.
+
+Q4 (GROUP BY/HAVING):
+Count authors per city, show only cities with more than 2 authors.
+
+Q5 (JOIN basic):
+List title + publisher name.
+
+Q6 (LEFT JOIN concept):
+Find authors who have not published any title.
+
+Q7. In one line, explain what your JOIN in Q6 is doing?
+
+Roles to map to:
+
+1. Query Writer (Loves writing queries)
+2. Data Checker (validates result, Good at Q6, JOIN / WHERE checks)
+3. Performance/Best Practice (aliasing, readability)
+4. Storyteller (turns result into narrative/insights, Clear explanation in Q7, good verbal skill)
+5. Presenter (2-minute report)
+
+
+
+Step1: Kickoff Database
+
+Input: Schema (authors, titles, publishers, sales…).
+Task: Each team draws a relationship map on paper/whiteboard (titles ↔ publishers, authors ↔ titleauthor ↔ titles, stores ↔ sales ↔ titles).
+Output: "Evidence Board" drawing (like detective board).
+
+Step2:Surveillance
+Input:Module2 SELECT, aliases, LIMIT, DISTINCT, WHERE, ORDER BY, LIKE, NULL
+Story:Before we fix anything, we must understand what’s inside the system.
+Example interpretations:
+ Retrieve all columns from authors → List all suspects (authors) with full profile.
+ Titles with price > 50 → Flag premium-priced books that need executive approval.
+ Publishers in New York → Identify HQ-linked publishers.
+ Title contains SQL → Find books related to SQL initiative.
+ Phone is UNKNOWN/NULL patterns → Find unreliable contact records.
+Output (pick as per your choice):
+Every team must present one query result as a story insight:
+We discovered ___ and it implies ___.
+Points:
+1. Correct query: 0-5
+2. Clear explanation: 0-3
+3. Great storytelling: 0-2
+
+Step2:Data Operations (Insert/Update/Delete)
+Input:Module3 INSERT / UPDATE / DELETE
+Story:Emergency operations—fix data before the board meeting.
+Example operations/missions:
+ Execute changes and then run a SELECT to prove the fix.
+ Insert new store → New branch opening announcement
+ Update city Oakland → San Francisco → Address standardization for deliveries
+ Update title advance → Renegotiated contract
+ Delete authors from Berkeley/Oakland → Fraudulent duplicates cleanup (and then discuss why this is dangerous)
+Output (examples):
+ What change did you make?
+ What was the risk?
+ How did you verify?
+Points:
+1. Correctness (0–5): ___
+2. Safety & Risk (0–5): ___
+3. Verification (0–5): ___
+4. Business Explanation (0–3): ___
+5. SQL Hygiene (0–2): ___
+
+Step3:Boardroom KPIs
+Input:Module4 aggregates + HAVING + ORDER BY
+Story:The board wants numbers, not tables. Here, you are converting SQL into business thinking.
+Example queries (examples):
+ Count all authors → Total active authors
+ Avg title price → Average catalog pricing
+ Count authors per city → Author concentration risk
+ Titles per type → Portfolio mix
+ Max price per type > 15 → Premium categories
+ Publishers per country > 1 → International footprint
+Output:
+Each team must identify KPI indicators on paper/white board 
+ 3 KPIs
+ 1 risk
+ 1 recommendation
+ Example:
+Authors & Titles
+SQL results they might have:
+Count authors per city
+Count titles per type
+Avg price per title type
+KPIs:
+Total Active Authors: 25
+Top Author City: Oakland (8 authors)
+Most Published Category: Business (6 titles)
+Risk:
+Author concentration risk — too many authors in one city
+Recommendation:
+Expand author acquisition beyond California
+
+Step4:Relationships & Missing Links
+Input: Module5 joins + the authors without titles investigation
+Story: Connections reveal truth. Maximum investigation. Sharpen your detectivve skills.
+Example queries:
+ Which authors wrote which titles?
+ Which titles have multiple authors?
+ Who hasn’t published yet? (LEFT JOIN)
+ Discussion point (your 7b) is gold: explain referential integrity like real-world policy.
+Output:
+One team presents a LEFT JOIN result.
+Another team cross-examines.
+ Why LEFT JOIN and not INNER?
+ What would INNER JOIN miss?
+
+Step5:Special Functions & Advanced Story Endings
+Input:Extras (string/date/case/null handling)
+Story:Polish reports + detect anomalies.
+Example checks/functions:
+ Address label formatting → Shipping label generator
+ Phone number format not conforming → Data quality alerts
+ Description contains word computer (case insensitive) → Tag titles for a campaign
+ Revenue assumption (price default 9.99, ytd_sales default 1000) → Forecast model with missing data
+ CASE/IF classification cheap vs expensive → Marketing segmentation
+Output:
+Teams must pick one extra challenge and present it as a mini product feature:
+ We built a data quality check
+ We built a forecasting report
+ We built a customer segmentation model
+
+Step6: Board Meeting Presentations
+Flow of the final story/presentation:
+1. What crisis we investigated
+2. 2 strongest insights (from SELECT/WHERE + JOIN + GROUP BY)
+3. One fix we applied (UPDATE/INSERT/DELETE)
+4. One risk (NULLs, missing records, referential integrity)
+5. Recommendation to leadership
+Awards:
+ Best Data Detective (best joins insight)
+ Best Boardroom Story (best narrative)
+ Best SQL Hygiene (clean aliases, readable queries)
+ Best Risk Awareness (safe updates, rollback, constraints)
